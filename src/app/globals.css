@@ -1,0 +1,254 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 255, 255, 255;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: #000000;
+  overflow-x: hidden; /* Permite scroll vertical se necessário, mas evita horizontal */
+}
+
+/* --- ESTILOS CYBERPUNK --- */
+
+.container-cyber {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: #000000;
+  color: #ffffff;
+  overflow: hidden;
+}
+
+.grid-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(rgba(0, 245, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 245, 255, 0.05) 1px, transparent 1px);
+  background-size: 50px 50px;
+  animation: grid-move 20s linear infinite;
+  z-index: 1;
+}
+
+@keyframes grid-move {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(50px, 50px); }
+}
+
+.scanline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, transparent 50%, rgba(0, 245, 255, 0.03) 51%, transparent 52%);
+  background-size: 100% 4px;
+  animation: scanline 8s linear infinite;
+  z-index: 2;
+  pointer-events: none;
+}
+
+@keyframes scanline {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(100%); }
+}
+
+.radial-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, rgba(138, 43, 226, 0.15) 0%, rgba(0, 245, 255, 0.1) 30%, transparent 70%);
+  animation: glow-pulse 4s ease-in-out infinite;
+  z-index: 1;
+}
+
+@keyframes glow-pulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
+  50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.8; }
+}
+
+.particles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 3;
+}
+
+.particle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: radial-gradient(circle, #00f5ff, #ff00ff);
+  border-radius: 50%;
+  box-shadow: 0 0 20px rgba(0, 245, 255, 0.8), 0 0 40px rgba(255, 0, 255, 0.6);
+  animation: float 20s infinite;
+}
+
+.particle:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s; animation-duration: 15s; }
+.particle:nth-child(2) { left: 80%; top: 30%; animation-delay: 2s; animation-duration: 18s; }
+.particle:nth-child(3) { left: 30%; top: 70%; animation-delay: 4s; animation-duration: 20s; }
+.particle:nth-child(4) { left: 70%; top: 60%; animation-delay: 1s; animation-duration: 17s; }
+
+@keyframes float {
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.8; }
+  50% { transform: translate(-50px, 150px) scale(0.8); opacity: 0.6; }
+  100% { transform: translate(0, 0) scale(1); opacity: 0.8; }
+}
+
+.content {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60px 40px;
+  background: rgba(15, 5, 30, 0.7);
+  backdrop-filter: blur(25px);
+  border-radius: 20px;
+  border: 1px solid rgba(0, 245, 255, 0.4);
+  box-shadow: 0 0 60px rgba(0, 245, 255, 0.3), 0 0 120px rgba(255, 0, 255, 0.2), inset 0 0 40px rgba(0, 245, 255, 0.08);
+}
+
+.loader-container {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  margin-bottom: 40px;
+}
+
+.loader-outer {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  border: 4px solid transparent;
+  border-top: 4px solid #00f5ff;
+  border-right: 4px solid #ff00ff;
+  border-radius: 50%;
+  animation: spin-outer 3s linear infinite;
+  filter: drop-shadow(0 0 15px #00f5ff);
+}
+
+.loader-inner {
+  position: absolute;
+  width: 110px;
+  height: 110px;
+  top: 20px;
+  left: 20px;
+  border: 4px solid transparent;
+  border-bottom: 4px solid #ff00ff;
+  border-left: 4px solid #00f5ff;
+  border-radius: 50%;
+  animation: spin-inner 2s linear infinite reverse;
+  filter: drop-shadow(0 0 15px #ff00ff);
+}
+
+.loader-core {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  top: 40px;
+  left: 40px;
+  background: linear-gradient(135deg, #00f5ff, #ff00ff);
+  border-radius: 50%;
+  animation: pulse 1.5s ease-in-out infinite;
+  box-shadow: 0 0 30px rgba(0, 245, 255, 0.8);
+}
+
+@keyframes spin-outer { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+@keyframes spin-inner { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+@keyframes pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.15); opacity: 0.8; } }
+
+.glitch {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 900;
+  background: linear-gradient(135deg, #00f5ff, #ff00ff, #00f5ff);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-shift 3s ease infinite;
+  margin: 0 0 20px 0;
+  text-align: center;
+  letter-spacing: 4px;
+  position: relative;
+}
+
+.glitch::before, .glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #00f5ff, #ff00ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.glitch::before { animation: glitch-1 2.5s infinite; clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%); }
+.glitch::after { animation: glitch-2 2.5s infinite; clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%); }
+
+@keyframes glitch-1 { 0%, 100% { transform: translate(0); } 33% { transform: translate(-2px, 2px); } }
+@keyframes glitch-2 { 0%, 100% { transform: translate(0); } 33% { transform: translate(2px, -2px); } }
+@keyframes gradient-shift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+
+.subtitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.bracket { color: #00f5ff; font-size: 1.5rem; animation: blink 2s infinite; }
+.status { color: #ff00ff; text-shadow: 0 0 15px rgba(255, 0, 255, 1); }
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+.progress-bar {
+  width: 300px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  box-shadow: 0 0 15px rgba(0, 245, 255, 0.4);
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #00f5ff, #ff00ff, #00f5ff);
+  background-size: 200% 100%;
+  animation: progress 2s ease-in-out infinite;
+  border-radius: 10px;
+  box-shadow: 0 0 25px rgba(0, 245, 255, 0.8);
+}
+
+@keyframes progress { 0% { width: 0%; } 50% { width: 70%; } 100% { width: 100%; } }
+
+.status-text {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 400;
+  letter-spacing: 1px;
+}
+
+.dots span { animation: dot-pulse 1.5s infinite; }
+.dots span:nth-child(2) { animation-delay: 0.3s; }
+.dots span:nth-child(3) { animation-delay: 0.6s; }
+@keyframes dot-pulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
